@@ -1,0 +1,145 @@
+~			// user local profile (desktop,downloads,documents)
+/			// root directory (os related files and folders)
+$			// normal user (limitted permission that system level)
+#			// root user	(administrator access) by default comes with full access
+pwd			// present working directory (help to find current location
+.			// current location
+..			// parent diretory
+sudo			// super user do (run as administrator)
+su			// switch user (login as a user)
+ls 			// to list files/fodlers
+ll			// long list
+<command> --help	// to get more informations and other options regarding the command
+man <command>		// to get more informations and other options regarding the command
+cd 			// change directory
+
+touch <file_name>	// to create files with any extensions
+touch 1.txt 2.sh 3.py   // to create multiple files
+touch sam{1..100}.txt	// it wil create sam1.txt,sam2.txt...sam100.txt
+
+mkdir <fodler_name>	// to create a folder
+mkdir ab01 ab02 ab03	// to create multiple folders
+mkdir -p d/TEST/PROTO/SANDPROOF/WHITESAND  // to create folder inside the fodler
+
+cp <source_name> <destination_name>		// to copy and paste  file/fodler
+cp 3.py  d/TEST/				// copy  and paste in same source name
+cp 3.py  d/TEST/demo.py				// copy  and paste in provided name
+mv <source_name> <destination_name>		// to cut and paste  file/fodler
+mv 3.py  d/TEST/				// cut and paste in same source name
+mv 2.py 2.sh d/TEST				// multiple files cust and paste in TEST folder
+
+mv <old_name> <new_name>			// to rename the file/fodler
+
+rm <file_name>					// to remove the file
+rm -f <file_name>				// forcefull delete
+rm -r <fodler_name>				// delete the folder
+rm -rf <fodler_name>				// delete the folder
+
+
+$ ls -l
+total 0
+drwxr-xr-x 1 Raja 197121 0 Nov  8 09:24 aws-cLASS/
+
+
+d = directory
+l = soft link
+- = file
+
+r = read     = allow to read the file	
+w = write    = allow to write file
+x = execute  = allow to install
+
+
+r w x
+- - - = -
+- - 1 = 1
+- 2 - = 2
+- 2 1 = 3
+4 - - = 4
+4 - 1 = 5
+4 2 - = 6
+4 2 1 = 7
+
+### permission and ownership ###
+
+chmod  400 <file_name> 
+
+chmod 	# change permissions
+chown	# change ownership
+chgrp	# change group ownership
+
+
+
+### file viewing commands ### 
+
+cat <file_name>		# view file contents (land in last page)
+more <file_name>	# view file contents page by page
+less <file_name>	# same like more but fast
+head <file_name>	# show first 10 lines in the file
+head -5 <file_name>	# show first 5 lines in the file
+tail <file_name>	# show last 10 lines in the file
+tail -5 <file_name>	# show last 5 lines in the file
+
+
+### system information ### 
+
+whoami		# show current user
+hostname	# shows system name
+uname -a	# show kernal and os info
+top		# display runnig process (task manager in windows)
+uptime		# show how long system has been running
+df -h		# show disk space usage
+du -sh		# show folder size
+free -h		# show memory usage
+
+### searching and finding ###
+
+find		# search files in directory
+grep		# search text in files
+
+
+
+
+[ec2-user@ip-172-31-9-195 ~]$ ls
+[ec2-user@ip-172-31-9-195 ~]$ touch sam
+[ec2-user@ip-172-31-9-195 ~]$ ls
+sam
+[ec2-user@ip-172-31-9-195 ~]$ sudo -i
+
+[root@ip-172-31-9-195 ~]# ls
+
+[root@ip-172-31-9-195 ~]# cd /
+
+[root@ip-172-31-9-195 /]# ls
+bin   dev  home  lib64  media  opt   root  sbin  sys  usr
+boot  etc  lib   local  mnt    proc  run   srv   tmp  var
+[root@ip-172-31-9-195 /]# exit
+logout
+[ec2-user@ip-172-31-9-195 ~]$ ls /
+bin   dev  home  lib64  media  opt   root  sbin  sys  usr
+boot  etc  lib   local  mnt    proc  run   srv   tmp  var
+[ec2-user@ip-172-31-9-195 ~]$
+
+[ec2-user@ip-172-31-9-195 ~]$ ls
+1.sh      lam3.txt  sam1.txt  sam4.sh    sand2.py   sand4.txt  tand5.py  vand4.sh
+2.txt     lam4.sh   sam2.py   sam4.txt   sand2.sh   sand5.py   vand1.py  vand5.py
+3.py      lam4.txt  sam2.sh   sam5.py    sand2.txt  sand5.sh   vand1.sh  vand5.sh
+lam1.sh   lam5.sh   sam2.txt  sam5.sh    sand3.py   sand5.txt  vand2.py
+lam1.txt  lam5.txt  sam3.py   sam5.txt   sand3.sh   tand1.py   vand2.sh
+lam2.sh   sam       sam3.sh   sand1.py   sand3.txt  tand2.py   vand3.py
+lam2.txt  sam1.py   sam3.txt  sand1.sh   sand4.py   tand3.py   vand3.sh
+lam3.sh   sam1.sh   sam4.py   sand1.txt  sand4.sh   tand4.py   vand4.py
+
+[ec2-user@ip-172-31-9-195 ~]$ mkdir ab1
+
+[ec2-user@ip-172-31-9-195 ~]$ mkdir ab2 ab3
+
+[ec2-user@ip-172-31-9-195 ~]$ ls
+1.sh      lam2.sh   sam       sam3.sh   sand1.py   sand3.txt  tand2.py  vand3.py
+2.txt     lam2.txt  sam1.py   sam3.txt  sand1.sh   sand4.py   tand3.py  vand3.sh
+3.py      lam3.sh   sam1.sh   sam4.py   sand1.txt  sand4.sh   tand4.py  vand4.py
+ab1       lam3.txt  sam1.txt  sam4.sh   sand2.py   sand4.txt  tand5.py  vand4.sh
+ab2       lam4.sh   sam2.py   sam4.txt  sand2.sh   sand5.py   vand1.py  vand5.py
+ab3       lam4.txt  sam2.sh   sam5.py   sand2.txt  sand5.sh   vand1.sh  vand5.sh
+lam1.sh   lam5.sh   sam2.txt  sam5.sh   sand3.py   sand5.txt  vand2.py
+lam1.txt  lam5.txt  sam3.py   sam5.txt  sand3.sh   tand1.py   vand2.sh
