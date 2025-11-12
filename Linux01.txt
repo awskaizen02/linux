@@ -35,6 +35,28 @@ rm -f <file_name>				// forcefull delete
 rm -r <fodler_name>				// delete the folder
 rm -rf <fodler_name>				// delete the folder
 
+### system information ### 
+
+whoami		# show current user
+hostname	# shows system name
+uname -a	# show kernal and os info
+top		# display runnig process (task manager in windows)
+uptime		# show how long system has been running
+df -h		# show disk space usage
+du -sh		# show folder size
+free -h		# show memory usage
+
+### file viewing commands ### 
+
+cat <file_name>		# view file contents (land in last page)
+more <file_name>	# view file contents page by page
+less <file_name>	# same like more but fast
+head <file_name>	# show first 10 lines in the file
+head -5 <file_name>	# show first 5 lines in the file
+tail <file_name>	# show last 10 lines in the file
+tail -5 <file_name>	# show last 5 lines in the file
+
+
 
 $ ls -l
 total 0
@@ -70,27 +92,9 @@ chgrp	# change group ownership
 
 
 
-### file viewing commands ### 
-
-cat <file_name>		# view file contents (land in last page)
-more <file_name>	# view file contents page by page
-less <file_name>	# same like more but fast
-head <file_name>	# show first 10 lines in the file
-head -5 <file_name>	# show first 5 lines in the file
-tail <file_name>	# show last 10 lines in the file
-tail -5 <file_name>	# show last 5 lines in the file
 
 
-### system information ### 
 
-whoami		# show current user
-hostname	# shows system name
-uname -a	# show kernal and os info
-top		# display runnig process (task manager in windows)
-uptime		# show how long system has been running
-df -h		# show disk space usage
-du -sh		# show folder size
-free -h		# show memory usage
 
 ### searching and finding ###
 
@@ -120,26 +124,232 @@ bin   dev  home  lib64  media  opt   root  sbin  sys  usr
 boot  etc  lib   local  mnt    proc  run   srv   tmp  var
 [ec2-user@ip-172-31-9-195 ~]$
 
-[ec2-user@ip-172-31-9-195 ~]$ ls
-1.sh      lam3.txt  sam1.txt  sam4.sh    sand2.py   sand4.txt  tand5.py  vand4.sh
-2.txt     lam4.sh   sam2.py   sam4.txt   sand2.sh   sand5.py   vand1.py  vand5.py
-3.py      lam4.txt  sam2.sh   sam5.py    sand2.txt  sand5.sh   vand1.sh  vand5.sh
-lam1.sh   lam5.sh   sam2.txt  sam5.sh    sand3.py   sand5.txt  vand2.py
-lam1.txt  lam5.txt  sam3.py   sam5.txt   sand3.sh   tand1.py   vand2.sh
-lam2.sh   sam       sam3.sh   sand1.py   sand3.txt  tand2.py   vand3.py
-lam2.txt  sam1.py   sam3.txt  sand1.sh   sand4.py   tand3.py   vand3.sh
-lam3.sh   sam1.sh   sam4.py   sand1.txt  sand4.sh   tand4.py   vand4.py
+[ec2-user@ip-172-31-56-229 ~]$ touch sam{1..5}.sh sam{1..5}.py sam{1..5}.txt lan{1..5}.sh lan{1..5}.py lan{1..5}.txt van{1..5}.txt
 
-[ec2-user@ip-172-31-9-195 ~]$ mkdir ab1
+[ec2-user@ip-172-31-56-229 ~]$ ls
+lan1.py   lan2.txt  lan4.sh   sam1.py   sam2.txt  sam4.sh   van1.txt
+lan1.sh   lan3.py   lan4.txt  sam1.sh   sam3.py   sam4.txt  van2.txt
+lan1.txt  lan3.sh   lan5.py   sam1.txt  sam3.sh   sam5.py   van3.txt
+lan2.py   lan3.txt  lan5.sh   sam2.py   sam3.txt  sam5.sh   van4.txt
+lan2.sh   lan4.py   lan5.txt  sam2.sh   sam4.py   sam5.txt  van5.txt
+[ec2-user@ip-172-31-56-229 ~]$ mkdir ab1 ab2 ab3
 
-[ec2-user@ip-172-31-9-195 ~]$ mkdir ab2 ab3
+[ec2-user@ip-172-31-56-229 ~]$ ls
+ab1      lan1.txt  lan3.sh   lan5.py   sam1.txt  sam3.sh   sam5.py   van3.txt
+ab2      lan2.py   lan3.txt  lan5.sh   sam2.py   sam3.txt  sam5.sh   van4.txt
+ab3      lan2.sh   lan4.py   lan5.txt  sam2.sh   sam4.py   sam5.txt  van5.txt
+lan1.py  lan2.txt  lan4.sh   sam1.py   sam2.txt  sam4.sh   van1.txt
+lan1.sh  lan3.py   lan4.txt  sam1.sh   sam3.py   sam4.txt  van2.txt
+[ec2-user@ip-172-31-56-229 ~]$
 
-[ec2-user@ip-172-31-9-195 ~]$ ls
-1.sh      lam2.sh   sam       sam3.sh   sand1.py   sand3.txt  tand2.py  vand3.py
-2.txt     lam2.txt  sam1.py   sam3.txt  sand1.sh   sand4.py   tand3.py  vand3.sh
-3.py      lam3.sh   sam1.sh   sam4.py   sand1.txt  sand4.sh   tand4.py  vand4.py
-ab1       lam3.txt  sam1.txt  sam4.sh   sand2.py   sand4.txt  tand5.py  vand4.sh
-ab2       lam4.sh   sam2.py   sam4.txt  sand2.sh   sand5.py   vand1.py  vand5.py
-ab3       lam4.txt  sam2.sh   sam5.py   sand2.txt  sand5.sh   vand1.sh  vand5.sh
-lam1.sh   lam5.sh   sam2.txt  sam5.sh   sand3.py   sand5.txt  vand2.py
-lam1.txt  lam5.txt  sam3.py   sam5.txt  sand3.sh   tand1.py   vand2.sh
+
+[ec2-user@ip-172-31-56-229 ~]$ mkdir ab4
+[ec2-user@ip-172-31-56-229 ~]$ cd ab4/
+[ec2-user@ip-172-31-56-229 ab4]$ mkdir x
+[ec2-user@ip-172-31-56-229 ab4]$ mkdir x/y
+[ec2-user@ip-172-31-56-229 ab4]$ mkdir x/y/z
+[ec2-user@ip-172-31-56-229 ab4]$
+
+[ec2-user@ip-172-31-56-229 ~]$ mkdir -p ab5/x1/y2/z3
+
+[ec2-user@ip-172-31-56-229 ~]$ touch samn{1..5}.txt sand{1..5}.txt sant{1..5}.txt
+
+[ec2-user@ip-172-31-56-229 ~]$ ls sa*.txt
+sam1.txt  sam4.txt   samn2.txt  samn5.txt  sand3.txt  sant1.txt  sant4.txt
+sam2.txt  sam5.txt   samn3.txt  sand1.txt  sand4.txt  sant2.txt  sant5.txt
+sam3.txt  samn1.txt  samn4.txt  sand2.txt  sand5.txt  sant3.txt
+[ec2-user@ip-172-31-56-229 ~]$
+
+[ec2-user@ip-172-31-56-229 ~]$ cp *.txt ab1
+[ec2-user@ip-172-31-56-229 ~]$ cp *.sh ab2
+[ec2-user@ip-172-31-56-229 ~]$ cp *.py ab3
+
+[ec2-user@ip-172-31-56-229 ~]$ ls ab1/
+lan1.txt  sam1.txt  samn1.txt  sand1.txt  sant1.txt  van1.txt
+lan2.txt  sam2.txt  samn2.txt  sand2.txt  sant2.txt  van2.txt
+lan3.txt  sam3.txt  samn3.txt  sand3.txt  sant3.txt  van3.txt
+lan4.txt  sam4.txt  samn4.txt  sand4.txt  sant4.txt  van4.txt
+lan5.txt  sam5.txt  samn5.txt  sand5.txt  sant5.txt  van5.txt
+
+[ec2-user@ip-172-31-56-229 ~]$ ls ab2/
+lan1.sh  lan3.sh  lan5.sh  sam2.sh  sam4.sh
+lan2.sh  lan4.sh  sam1.sh  sam3.sh  sam5.sh
+
+[ec2-user@ip-172-31-56-229 ~]$ ls ab3/
+lan1.py  lan3.py  lan5.py  sam2.py  sam4.py
+lan2.py  lan4.py  sam1.py  sam3.py  sam5.py
+
+[ec2-user@ip-172-31-56-229 ~]$ ls
+ab1      lan1.txt  lan4.py   sam1.sh   sam3.txt  samn1.txt  sand3.txt  sant5.txt
+ab2      lan2.py   lan4.sh   sam1.txt  sam4.py   samn2.txt  sand4.txt  van1.txt
+ab3      lan2.sh   lan4.txt  sam2.py   sam4.sh   samn3.txt  sand5.txt  van2.txt
+ab4      lan2.txt  lan5.py   sam2.sh   sam4.txt  samn4.txt  sant1.txt  van3.txt
+ab5      lan3.py   lan5.sh   sam2.txt  sam5.py   samn5.txt  sant2.txt  van4.txt
+lan1.py  lan3.sh   lan5.txt  sam3.py   sam5.sh   sand1.txt  sant3.txt  van5.txt
+lan1.sh  lan3.txt  sam1.py   sam3.sh   sam5.txt  sand2.txt  sant4.txt
+
+[ec2-user@ip-172-31-56-229 ~]$ mv *.txt ab5/x1/y2/z3/
+[ec2-user@ip-172-31-56-229 ~]$ mv *.sh ab5/x1/
+[ec2-user@ip-172-31-56-229 ~]$ mv *.py ab5/x1/y2/
+[ec2-user@ip-172-31-56-229 ~]$ ls -R ab5/
+ab5/:
+x1
+
+ab5/x1:
+lan1.sh  lan3.sh  lan5.sh  sam2.sh  sam4.sh  y2
+lan2.sh  lan4.sh  sam1.sh  sam3.sh  sam5.sh
+
+ab5/x1/y2:
+lan1.py  lan3.py  lan5.py  sam2.py  sam4.py  z3
+lan2.py  lan4.py  sam1.py  sam3.py  sam5.py
+
+ab5/x1/y2/z3:
+lan1.txt  sam1.txt  samn1.txt  sand1.txt  sant1.txt  van1.txt
+lan2.txt  sam2.txt  samn2.txt  sand2.txt  sant2.txt  van2.txt
+lan3.txt  sam3.txt  samn3.txt  sand3.txt  sant3.txt  van3.txt
+lan4.txt  sam4.txt  samn4.txt  sand4.txt  sant4.txt  van4.txt
+lan5.txt  sam5.txt  samn5.txt  sand5.txt  sant5.txt  van5.txt
+
+[ec2-user@ip-172-31-56-229 ~]$ cd taks5/x1/y2/z3/
+[ec2-user@ip-172-31-56-229 z3]$ pwd
+/home/ec2-user/taks5/x1/y2/z3
+[ec2-user@ip-172-31-56-229 z3]$ cd ..
+[ec2-user@ip-172-31-56-229 y2]$ pwd
+/home/ec2-user/taks5/x1/y2
+[ec2-user@ip-172-31-56-229 y2]$ cd ../../
+[ec2-user@ip-172-31-56-229 taks5]$ cd ..
+[ec2-user@ip-172-31-56-229 ~]$ pwd
+/home/ec2-user
+
+[ec2-user@ip-172-31-56-229 x1]$ ls
+lan1.sh  lan3.sh  lan5.sh  sam2.sh  sam4.sh  y2
+lan2.sh  lan4.sh  sam1.sh  sam3.sh  sam5.sh
+[ec2-user@ip-172-31-56-229 x1]$ rm lan1.sh
+
+[ec2-user@ip-172-31-56-229 x1]$ rm y2/
+rm: cannot remove 'y2/': Is a directory
+
+[ec2-user@ip-172-31-56-229 x1]$ rm -r y2/
+
+[ec2-user@ip-172-31-56-229 x1]$ ls
+lan3.sh  lan4.sh  lan5.sh  sam1.sh  sam2.sh  sam3.sh  sam4.sh  sam5.sh
+
+[ec2-user@ip-172-31-56-229 ~]$ ls
+ab1  ab2  ab3  ab4  taks5
+[ec2-user@ip-172-31-56-229 ~]$ rm -rf *
+[ec2-user@ip-172-31-56-229 ~]$ ls
+
+[ec2-user@ip-172-31-56-229 ~]$ whoami
+ec2-user
+
+[ec2-user@ip-172-31-56-229 ~]$ hostname
+ip-172-31-56-229.us-west-2.compute.internal
+
+[ec2-user@ip-172-31-56-229 ~]$ uname -a
+Linux ip-172-31-56-229.us-west-2.compute.internal 6.1.158-178.288.amzn2023.x86_64 #1 SMP PREEMPT_DYNAMIC Mon Nov  3 18:38:36 UTC 2025 x86_64 x86_64 x86_64 GNU/Linux
+
+[ec2-user@ip-172-31-56-229 ~]$ uptime
+ 14:11:17 up 22 min,  1 user,  load average: 0.00, 0.00, 0.00
+
+[ec2-user@ip-172-31-56-229 ~]$ df -h
+Filesystem        Size  Used Avail Use% Mounted on
+devtmpfs          4.0M     0  4.0M   0% /dev
+tmpfs             453M     0  453M   0% /dev/shm
+tmpfs             181M  432K  181M   1% /run
+/dev/nvme0n1p1    8.0G  1.6G  6.4G  20% /
+tmpfs             453M     0  453M   0% /tmp
+/dev/nvme0n1p128   10M  1.3M  8.7M  13% /boot/efi
+tmpfs              91M     0   91M   0% /run/user/1000
+
+[ec2-user@ip-172-31-56-229 ~]$ du -sh
+16K     .
+
+[ec2-user@ip-172-31-56-229 ~]$ du -sh /etc/
+du: cannot read directory '/etc/grub.d': Permission denied
+du: cannot read directory '/etc/ssh/sshd_config.d': Permission denied
+du: cannot read directory '/etc/sssd': Permission denied
+du: cannot read directory '/etc/sudoers.d': Permission denied
+du: cannot read directory '/etc/audit': Permission denied
+22M     /etc/
+
+[ec2-user@ip-172-31-56-229 ~]$ sudo du -sh /etc/
+22M     /etc/
+
+[ec2-user@ip-172-31-56-229 ~]$ sudo du -sh /
+du: cannot access '/proc/2513/task/2513/fd/3': No such file or directory
+du: cannot access '/proc/2513/task/2513/fdinfo/3': No such file or directory
+du: cannot access '/proc/2513/fd/4': No such file or directory
+du: cannot access '/proc/2513/fdinfo/4': No such file or directory
+1.5G    /
+
+[ec2-user@ip-172-31-56-229 ~]$ free -h
+               total        used        free      shared  buff/cache   available
+Mem:           904Mi       200Mi       405Mi       0.0Ki       298Mi       534Mi
+Swap:             0B          0B          0B
+
+[ec2-user@ip-172-31-56-229 ~]$ head -2 1.txt
+DIR_COLORS
+DIR_COLORS.lightbgcolor
+
+[ec2-user@ip-172-31-56-229 ~]$ tail 1.txt
+tmpfiles.d
+trusted-key.key
+udev
+update-motd.d
+vimrc
+virc
+wgetrc
+xattr.conf
+xdg
+yum.repos.d
+
+[ec2-user@ip-172-31-56-229 ~]$ tail -2 1.txt
+xdg
+yum.repos.d
+
+[ec2-user@ip-172-31-56-229 ~]$ top
+
+[ec2-user@ip-172-31-56-229 ~]$ more 1.xt
+
+[ec2-user@ip-172-31-56-229 ~]$ cat 1.xt
+
+[ec2-user@ip-172-31-56-229 ~]$ less 1.xt
+
+
+[root@ip-172-31-56-229 ~]# find /var/log/ -name "dnf.log"
+/var/log/dnf.log
+
+[root@ip-172-31-56-229 ~]# find /var/ -name "dnf.log"
+/var/log/dnf.log
+
+[root@ip-172-31-56-229 ~]# find / -name "dnf.log"
+/var/log/dnf.log
+
+[root@ip-172-31-56-229 ~]# find / -name "rpm"
+/etc/rpm
+/sys/kernel/tracing/events/rpm
+/sys/kernel/debug/tracing/events/rpm
+/var/lib/selinux/targeted/active/modules/100/rpm
+/var/lib/rpm
+/usr/bin/rpm
+/usr/lib/rpm
+/usr/lib/rpm/lua/fedora/rpm
+/usr/lib/python3.9/site-packages/dnf/rpm
+/usr/lib64/python3.9/site-packages/rpm
+/usr/share/doc/rpm
+/usr/share/licenses/rpm
+/usr/share/bash-completion/completions/rpm
+
+[root@ip-172-31-56-229 ~]# find / -iname "Lastlog"
+/run/initramfs/log/lastlog
+/var/log/lastlog
+/usr/bin/lastlog
+/usr/share/bash-completion/completions/lastlog
+
+[root@ip-172-31-56-229 ~]# find / -name "Lastlog"
+
+[root@ip-172-31-56-229 ~]# cat /etc/passwd | grep ec2
+ec2-instance-connect:x:993:993::/home/ec2-instance-connect:/sbin/nologin
+ec2-user:x:1000:1000:EC2 Default User:/home/ec2-user:/bin/bash
+
+[root@ip-172-31-56-229 ~]# grep -r "failed" /var/log
