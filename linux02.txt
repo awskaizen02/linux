@@ -1,0 +1,238 @@
+d = directory
+l = soft link
+- = file
+
+r = read     = allow to read the file	
+w = write    = allow to write file
+x = execute  = allow to install
+
+# https://www.redhat.com/en/blog/linux-file-permissions-explained
+
+r (read): 4
+w (write): 2
+x (execute): 1
+
+r w x
+- - - = -
+- - 1 = 1
+- 2 - = 2
+- 2 1 = 3
+4 - - = 4
+4 - 1 = 5
+4 2 - = 6
+4 2 1 = 7
+
+u=rwx = 7
+g=rx  = 5
+o=rx  = 5
+
+[ec2-user@ip-172-31-51-202 ~]$ touch user01  
+[ec2-user@ip-172-31-51-202 ~]$ mkdir uf01
+[ec2-user@ip-172-31-51-202 ~]$ ls -l
+total 0
+drwxr-xr-x. 2 ec2-user ec2-user 6 Nov 14 13:38 uf01	= 755
+-rw-r--r--. 1 ec2-user ec2-user 0 Nov 14 13:38 user01	= 644
+
+[ec2-user@ip-172-31-51-202 ~]$ sudo -i
+[root@ip-172-31-51-202 ~]# ls
+[root@ip-172-31-51-202 ~]# touch adfile
+[root@ip-172-31-51-202 ~]# mkdir afolder
+[root@ip-172-31-51-202 ~]# ls -l
+total 0
+-rw-r--r--. 1 root root 0 Nov 14 13:39 adfile	= 644
+drwxr-xr-x. 2 root root 6 Nov 14 13:39 afolder  = 755
+
+u=rw =6
+g=r  =4
+o=r  =4
+
+
+touch <file_name> to create a file 
+to edit file use vi,vim,nano <file_name>
+
+-rw-r--r--. 1 ec2-user ec2-user 0 Nov 14 13:38 user01
+[ec2-user@ip-172-31-51-202 ~]$ chmod 754 user01
+[ec2-user@ip-172-31-51-202 ~]$ ls -l user01
+-rwxr-xr--. 1 ec2-user ec2-user 0 Nov 14 13:38 user01
+[ec2-user@ip-172-31-51-202 ~]$ chmod 400 user01
+[ec2-user@ip-172-31-51-202 ~]$ ls -l user01
+-r--------. 1 ec2-user ec2-user 0 Nov 14 13:38 user01
+[ec2-user@ip-172-31-51-202 ~]$ vi user01
+[ec2-user@ip-172-31-51-202 ~]$ ls -l user01
+-r--------. 1 ec2-user ec2-user 0 Nov 14 13:38 user01
+[ec2-user@ip-172-31-51-202 ~]$ chmod 600 user01
+[ec2-user@ip-172-31-51-202 ~]$ ls -l user01
+-rw-------. 1 ec2-user ec2-user 0 Nov 14 13:38 user01
+[ec2-user@ip-172-31-51-202 ~]$ chmod 400 user01
+[ec2-user@ip-172-31-51-202 ~]$ ls -l user01
+-r--------. 1 ec2-user ec2-user 0 Nov 14 13:38 user01
+[ec2-user@ip-172-31-51-202 ~]$ chmod u+w user01
+[ec2-user@ip-172-31-51-202 ~]$ ls -l user01
+-rw-------. 1 ec2-user ec2-user 0 Nov 14 13:38 user01
+[ec2-user@ip-172-31-51-202 ~]$ chmod u=w user01
+[ec2-user@ip-172-31-51-202 ~]$ ls -l
+total 0
+drwxr-xr-x. 2 ec2-user ec2-user 6 Nov 14 13:38 uf01
+--w-------. 1 ec2-user ec2-user 0 Nov 14 13:38 user01
+[ec2-user@ip-172-31-51-202 ~]$ chmod u=wrx,go=rw user01
+[ec2-user@ip-172-31-51-202 ~]$ ls -l user01
+-rwxrw-rw-. 1 ec2-user ec2-user 0 Nov 14 13:38 user01
+
+[ec2-user@ip-172-31-51-202 ~]$ sudo useradd tom
+[ec2-user@ip-172-31-51-202 ~]$ sudo passwd tom
+Changing password for user tom.
+New password:
+BAD PASSWORD: The password fails the dictionary check - it is too simplistic/systematic
+Retype new password:
+passwd: all authentication tokens updated successfully.
+
+[ec2-user@ip-172-31-51-202 ~]$ tail -3 /etc/passwd
+tcpdump:x:72:72::/:/sbin/nologin
+ec2-user:x:1000:1000:EC2 Default User:/home/ec2-user:/bin/bash
+tom:x:1001:1001::/home/tom:/bin/bash
+
+[ec2-user@ip-172-31-51-202 ~]$ sudo useradd jerry
+[ec2-user@ip-172-31-51-202 ~]$ sudo passwd jerry
+Changing password for user jerry.
+New password:
+BAD PASSWORD: The password fails the dictionary check - it is too simplistic/systematic
+Retype new password:
+passwd: all authentication tokens updated successfully.
+[ec2-user@ip-172-31-51-202 ~]$ tail -3 /etc/passwd
+ec2-user:x:1000:1000:EC2 Default User:/home/ec2-user:/bin/bash
+tom:x:1001:1001::/home/tom:/bin/bash
+jerry:x:1002:1002::/home/jerry:/bin/bash
+
+user :password:uid :gid :loginname :userdirectory:loin shell
+jerry:    x   :1002:1002:          :/home/jerry  :/bin/bash
+
+
+[ec2-user@ip-172-31-51-202 ~]$ sudo vi /etc/ssh/sshd_config
+	PasswordAuthentication yes
+
+[ec2-user@ip-172-31-51-202 ~]$ sudo service sshd restart
+Redirecting to /bin/systemctl restart sshd.service
+
+[ec2-user@ip-172-31-51-202 ~]$ sudo visudo
+tom      ALL=(ALL)       ALL
+tim      ALL=(ALL)       NOPASSWD: ALL
+
+[ec2-user@ip-172-31-51-202 ~]$ ls -ld /project/
+drwxr-xr-x. 2 root root 6 Nov 14 14:02 /project/
+
+[ec2-user@ip-172-31-51-202 ~]$ sudo chown tom:jerry /project/
+
+[ec2-user@ip-172-31-51-202 ~]$ ls -ld /project/
+drwxr-xr-x. 2 tom jerry 6 Nov 14 14:02 /project/
+
+[ec2-user@ip-172-31-51-202 ~]$ ls -ld /project/
+drwxr-xr-x. 2 tom jerry 6 Nov 14 14:02 /project/
+[ec2-user@ip-172-31-51-202 ~]$ sudo chmod g+w /project/
+[ec2-user@ip-172-31-51-202 ~]$ ls -ld /project/
+drwxrwxr-x. 2 tom jerry 19 Nov 14 14:08 /project/
+
+[ec2-user@ip-172-31-51-202 ~]$  sudo chown -R tom:jerry /project/
+[ec2-user@ip-172-31-51-202 ~]$ ls -l /project/
+total 0
+-rw-r--r--. 1 tom jerry 0 Nov 14 14:09 j.txt
+-rw-r--r--. 1 tom jerry 0 Nov 14 14:08 t.txt
+[ec2-user@ip-172-31-51-202 ~]$
+
+[ec2-user@ip-172-31-51-202 ~]$ sudo usermod -aG wheel jerry
+
+[ec2-user@ip-172-31-51-202 ~]$ head -15 /etc/group
+root:x:0:
+bin:x:1:
+mem:x:8:
+kmem:x:9:
+wheel:x:10:ec2-user,jerry
+
+
+[ec2-user@ip-172-31-51-202 ~]$ sudo userdel -r tom
+[ec2-user@ip-172-31-51-202 ~]$ ls /home
+ec2-user  jerry
+[ec2-user@ip-172-31-51-202 ~]$ sudo userdel -r jerry
+[ec2-user@ip-172-31-51-202 ~]$ ls /home
+ec2-user
+
+PS C:\Users\Raja> ssh tom@44.243.132.199
+The authenticity of host '44.243.132.199 (44.243.132.199)' can't be established.
+ED25519 key fingerprint is SHA256:nKPw9nwWrDeS3nJmHc9R7pbYX2RIeRJhq3JpX1mh7ew.
+This host key is known by the following other names/addresses:
+    C:\Users\Raja/.ssh/known_hosts:666: ec2-44-243-132-199.us-west-2.compute.amazonaws.com
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '44.243.132.199' (ED25519) to the list of known hosts.
+tom@44.243.132.199: Permission denied (publickey,gssapi-keyex,gssapi-with-mic).
+
+[tom@ip-172-31-51-202 /]$ mkdir project
+mkdir: cannot create directory ‘project’: Permission denied
+[tom@ip-172-31-51-202 /]$ sudo mkdir project
+
+We trust you have received the usual lecture from the local System
+Administrator. It usually boils down to these three things:
+
+    #1) Respect the privacy of others.
+    #2) Think before you type.
+    #3) With great power comes great responsibility.
+
+For security reasons, the password you type will not be visible.
+
+[sudo] password for tom:
+tom is not in the sudoers file.
+
+[tom@ip-172-31-51-202 /]$ cd project/
+[tom@ip-172-31-51-202 project]$ touch t.txt
+touch: cannot touch 't.txt': Permission denied
+[tom@ip-172-31-51-202 project]$ touch t.txt
+[tom@ip-172-31-51-202 project]$ ls -l
+total 0
+-rw-r--r--. 1 tom tom 0 Nov 14 14:08 t.txt
+[tom@ip-172-31-51-202 project]$
+
+
+
+[jerry@ip-172-31-51-202 /]$ cd project/
+[jerry@ip-172-31-51-202 project]$ ls
+[jerry@ip-172-31-51-202 project]$ touch j.txt
+touch: cannot touch 'j.txt': Permission denied
+[jerry@ip-172-31-51-202 project]$ touch j.txt
+touch: cannot touch 'j.txt': Permission denied
+[jerry@ip-172-31-51-202 project]$ touch j.txt
+[jerry@ip-172-31-51-202 project]$ ls -l
+total 0
+-rw-r--r--. 1 jerry jerry 0 Nov 14 14:09 j.txt
+-rw-r--r--. 1 tom   tom   0 Nov 14 14:08 t.txt
+[jerry@ip-172-31-51-202 project]$
+
+[jerry@ip-172-31-51-202 /]$ ls
+bin   dev  home  lib64  media  opt   project  run   srv  tmp  var
+boot  etc  lib   local  mnt    proc  root     sbin  sys  usr
+
+[jerry@ip-172-31-51-202 /]$ rm -rf project/
+rm: cannot remove 'project/': Permission denied
+
+[jerry@ip-172-31-51-202 /]$ sudo rm -rf project/
+[sudo] password for jerry:
+jerry is not in the sudoers file.
+
+[jerry@ip-172-31-51-202 /]$ sudo rm -rf project/
+[jerry@ip-172-31-51-202 /]$ ls
+bin   dev  home  lib64  media  opt   root  sbin  sys  usr
+boot  etc  lib   local  mnt    proc  run   srv   tmp  var
+
+
+
+root       = 0 : 0	 0 : 0
+system     = 1:999	 1:999	
+normal user= 1000:60000  1000:60000
+
+
+# https://www.atmos.albany.edu/daes/atmclasses/atm350/vi_cheat_sheet.pdf
+
+vi to edit the file
+
+i = to insert into the file
+esc  = to come normal mode
+	:wq  to save and quit the file
+:w to save
+:q! to quite the file with forcefully
