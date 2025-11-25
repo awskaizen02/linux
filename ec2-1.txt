@@ -1,0 +1,77 @@
+
+to access linux machines  using ssh
+terminal #
+putty    #  pytty.org # https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
+
+putty     # to access the linux machine
+puttygen  # helps to convert .pem to .ppk
+
+choose the region while creatng any services
+
+tags to referns the details of the instance
+
+Name and tags
+key	 value
+Name	 Demo-Windows server
+Env	 Dev
+Clinet   Hippo
+
+
+OS = AMI = Amazon Machine Image 
+
+Quick Start AMIs # Commonly used AMIs
+
+My AMIs 	 # Created by me
+
+AWS Marketplace AMIs # AWS & trusted third-party AMIs
+
+
+Create key pair
+
+Key pair name # as required provide any name
+Key pair type
+	RSA  # choose this
+	ED25519
+
+Private key file format
+.pem	   # choose this to create 	
+.ppk
+
+
+Network  always refers region
+subnet always refers Physical Data center in that region
+
+Public-IP enable # allow to access internet [Dynamic]
+
+security groups # Firewall 
+
+ssh		# allow to access linux machine
+rdp		# allow to access windows machine
+http		# allow to access internet
+https		# allow to access internet with secure certificate
+all icmp ipv4	# # allow to get connectivity responce (ping)
+
+Shutdown behavior 
+	stop	  : 
+	terminate : 
+	
+Stop - Hibernate behavior:
+	enbale
+	disable
+	
+Termination protection: it wont allow to terminate by mistakenly
+	enable  :
+	disable :
+	
+Stop protection	: it wont allow to stop by mistakenly
+	enable  :
+	disable :
+	
+	
+userdata: provide script to install while booting the instance
+
+linux : shells cript
+windows: powershell
+
+
+44.249.5.1

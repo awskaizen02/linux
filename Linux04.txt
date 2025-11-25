@@ -1,0 +1,149 @@
+process Management
+
+
+ps -ef 		// list running processes
+ps aux		//  list all processes
+ps -u username	// processes of a specific user
+ps -eo pid,ppid,user,cmd,%cpu,%mem --sort=-%cpu	// list processes sorted by highest cpu usage
+
+kill -9 	// kill a process
+
+
+top		// monitor system
+
+htop		// better moniotr with htop
+
+
+[ec2-user@ip-172-31-62-243 ~]$ ps
+    PID TTY          TIME CMD
+   1742 pts/1    00:00:00 bash
+   1765 pts/1    00:00:00 ps
+[ec2-user@ip-172-31-62-243 ~]$ whoami
+ec2-user
+[ec2-user@ip-172-31-62-243 ~]$ who
+ec2-user pts/0        2025-11-21 01:45 (122.164.10.103)
+ec2-user pts/1        2025-11-21 01:46 (122.164.10.103)
+[ec2-user@ip-172-31-62-243 ~]$ ps
+    PID TTY          TIME CMD
+   1742 pts/1    00:00:00 bash
+  25319 pts/1    00:00:00 ps
+
+[ec2-user@ip-172-31-62-243 ~]$ ps -L -p 25316
+    PID     LWP TTY          TIME CMD
+  25316   25316 pts/0    00:03:10 stress
+[ec2-user@ip-172-31-62-243 ~]$ ps e -p 25316
+    PID TTY      STAT   TIME COMMAND
+  25316 pts/0    R      3:38 stress --cpu 2 --timeout 420 SHELL=/bin/bash HISTCONTR
+
+[ec2-user@ip-172-31-62-243 ~]$ ps -u ec2-user -o pid,cmd,%cpu,%mem
+    PID CMD                         %CPU %MEM
+   1650 /usr/lib/systemd/systemd --  0.0  1.4
+   1652 (sd-pam)                     0.0  0.7
+   1659 sshd: ec2-user@pts/0         0.0  0.6
+   1660 -bash                        0.0  0.5
+   1741 sshd: ec2-user@pts/1         0.0  0.6
+   1742 -bash                        0.0  0.5
+   1821 sshd: ec2-user@pts/2         0.0  0.6
+   1822 -bash                        0.0  0.5
+  25315 stress --cpu 2 --timeout 42  0.0  0.1
+  25316 stress --cpu 2 --timeout 42  101  0.0
+  25317 stress --cpu 2 --timeout 42  101  0.0
+  25318 top                          0.1  0.3
+  25320 ps -u ec2-user -o pid,cmd,%  0.0  0.3
+
+[ec2-user@ip-172-31-62-243 ~]$ ps -C stress -o pid,cmd,%cpu,%mem
+    PID CMD                         %CPU %MEM
+  25315 stress --cpu 2 --timeout 42  0.0  0.1
+  25316 stress --cpu 2 --timeout 42  100  0.0
+  25317 stress --cpu 2 --timeout 42  100  0.0
+  
+  [ec2-user@ip-172-31-62-243 ~]$ ps -eo pid,cmd,lstart
+      PID CMD                                          STARTED
+        1 /usr/lib/systemd/systemd -- Fri Nov 21 01:45:34 2025
+        2 [kthreadd]                  Fri Nov 21 01:45:34 2025
+        3 [rcu_gp]                    Fri Nov 21 01:45:34 2025
+        4 [rcu_par_gp]                Fri Nov 21 01:45:34 2025
+        5 [slub_flushwq]              Fri Nov 21 01:45:34 2025
+        6 [netns]                     Fri Nov 21 01:45:34 2025
+        8 [kworker/0:0H-events_highpr Fri Nov 21 01:45:34 2025
+        9 [kworker/u4:0-events_unboun Fri Nov 21 01:45:34 2025
+       10 [mm_percpu_wq]              Fri Nov 21 01:45:34 2025
+       11 [rcu_tasks_kthread]         Fri Nov 21 01:45:34 2025
+       12 [rcu_tasks_rude_kthread]    Fri Nov 21 01:45:34 2025
+       13 [rcu_tasks_trace_kthread]   Fri Nov 21 01:45:34 2025
+       14 [ksoftirqd/0]               Fri Nov 21 01:45:34 2025
+     15 [rcu_preempt]               Fri Nov 21 01:45:34 2025
+     
+     [ec2-user@ip-172-31-62-243 ~]$ ps -ef | grep stress
+     ec2-user   25315    1660  0 01:49 pts/0    00:00:00 stress --cpu 2 --timeout 420
+     ec2-user   25316   25315 99 01:49 pts/0    00:06:19 stress --cpu 2 --timeout 420
+     ec2-user   25317   25315 99 01:49 pts/0    00:06:19 stress --cpu 2 --timeout 420
+ec2-user   25481    1742  0 01:55 pts/1    00:00:00 grep --color=auto stress
+
+[ec2-user@ip-172-31-62-243 ~]$ sleep 100
+
+[ec2-user@ip-172-31-62-243 ~]$ ps -eu
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+ec2-user    1660  0.0  0.5 224044  5012 pts/0    Ss   01:45   0:00 -bash USER=ec2-u
+ec2-user    1742  0.0  0.5 224044  5040 pts/1    Ss   01:46   0:00 -bash USER=ec2-u
+ec2-user    1822  0.0  0.5 224044  4992 pts/2    Ss   01:47   0:00 -bash USER=ec2-u
+ec2-user   25318  0.1  0.3 224016  3308 pts/0    S+   01:49   0:00 top SHELL=/bin/b
+ec2-user   25537  0.0  0.1 221372  1012 pts/1    S+   01:56   0:00 sleep 100 SHELL=
+ec2-user   25539  0.0  0.3 223592  2836 pts/2    R+   01:57   0:00 ps -eu SHELL=/bi
+
+[ec2-user@ip-172-31-62-243 ~]$ ps -eu
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+
+user	// the username of the process owner
+PID	// process ID
+%cpu	// percentage of cpu time the procss is currently using
+%MEM	// percentage of physical ram the prcoess is consuming
+VSZ	// virtual memory size
+RSS	// resident set size - actual physical memory used
+TTY	// Terminal associated with the processes
+STAT	// Process state(R=running,S=sleeping,T=stopped,Z=Zombie)
+start	// strt time/date of the process
+TIME	// total CPU time the proces has consumed since start
+COMMAND	// the command that launched the process
+
+[ec2-user@ip-172-31-62-243 ~]$ top
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+  
+  PID	 process ID
+  USER	 owner of the process
+  PR	 Priority (lower = higher priority)
+  NI	 Nice Value(user-set priority adjustment)
+  VIRT	vertual memory size
+  RES	resident Memory (RAM actually used)
+  SHR	 Shared Memory
+  S 	 Process state (R-running,S-sleeping,I-idle(kernal thread),T=stopped,Z=zombie)
+  %CPU	 CPU usage percentage
+  %MEM	 Memory usegae percentage
+  Time+	 Total time CPU time consumed
+  Command The command that started the process
+  
+  nice & renice - Priority Control [0=normal,-20=highest, 19 = lowest]
+  
+[ec2-user@ip-172-31-62-243 ~]$ nice -n 10 stress --cpu 1 --timeout 250 &
+
+[ec2-user@ip-172-31-62-243 ~]$ renice -n 5 -p 25903
+
+[ec2-user@ip-172-31-62-243 ~]$ kill -9 26350
+[ec2-user@ip-172-31-62-243 ~]$ kill -9 26352
+[ec2-user@ip-172-31-62-243 ~]$ pkill -u ec2-user
+[ec2-user@ip-172-31-62-243 ~]$ killall stress
+------------------------------------------------------------------------  
+Signal		Number		     Purpose
+------------------------------------------------------------------------
+SIGTERM		 15		Graceful termination (default)
+SIGKILL		 9		Force kill (cannot be caught/ignored)
+SIGHUP		 1		Hangup ? reload configs or restart
+SIGSTOP		 19		Pause process
+SIGCONT		 18		Resume paused process  
+------------------------------------------------------------------------
+
+
+services  --
+packet manager
+
+shell cript

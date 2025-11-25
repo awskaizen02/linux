@@ -1,0 +1,161 @@
+systemctl status <service-name>
+
+systemctl status sshd
+
+
+[ec2-user@ip-172-31-20-227 ~]$ systemctl status httpd
+Unit httpd.service could not be found.
+
+[ec2-user@ip-172-31-20-227 ~]$ rpm -qa | grep httpd
+
+[ec2-user@ip-172-31-20-227 ~]$ yum listinstalled | grep httpd
+No such command: listinstalled. Please use /usr/bin/yum --help
+It could be a YUM plugin command, try: "yum install 'dnf-command(listinstalled)'"
+
+[ec2-user@ip-172-31-20-227 ~]$ which httpd
+/usr/bin/which: no httpd in (/home/ec2-user/.local/bin:/home/ec2-user/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin)
+
+[ec2-user@ip-172-31-20-227 ~]$ ps -ef | grep httpd
+ec2-user    1845    1660  0 01:56 pts/0    00:00:00 grep --color=auto httpd
+
+[ec2-user@ip-172-31-20-227 ~]$ sudo yum install httpd -y
+
+
+
+
+[ec2-user@ip-172-31-20-227 ~]$ sudo systemctl status httpd
+? httpd.service - The Apache HTTP Server
+     Loaded: loaded (/usr/lib/systemd/system/httpd.service; disabled; preset: disa>
+     Active: active (running) since Tue 2025-11-25 01:57:36 UTC; 17s ago
+       Docs: man:httpd.service(8)
+   Main PID: 25485 (httpd)
+     Status: "Total requests: 0; Idle/Busy workers 100/0;Requests/sec: 0; Bytes se>
+      Tasks: 177 (limit: 1053)
+     Memory: 13.3M
+        CPU: 73ms
+     CGroup: /system.slice/httpd.service
+             +-25485 /usr/sbin/httpd -DFOREGROUND
+             +-25508 /usr/sbin/httpd -DFOREGROUND
+             +-25511 /usr/sbin/httpd -DFOREGROUND
+             +-25512 /usr/sbin/httpd -DFOREGROUND
+             +-25514 /usr/sbin/httpd -DFOREGROUND
+             
+[ec2-user@ip-172-31-20-227 ~]$ sudo init 6  
+
+[ec2-user@ip-172-31-20-227 ~]$ sudo systemctl status httpd
+? httpd.service - The Apache HTTP Server
+     Loaded: loaded (/usr/lib/systemd/system/httpd.service; disabled; preset: disa>
+     Active: inactive (dead)
+       Docs: man:httpd.service(8)
+       
+       
+[ec2-user@ip-172-31-20-227 ~]$ sudo systemctl enable httpd
+Created symlink /etc/systemd/system/multi-user.target.wants/httpd.service ? /usr/lib/systemd/system/httpd.service.
+
+[ec2-user@ip-172-31-20-227 ~]$ sudo systemctl status httpd
+? httpd.service - The Apache HTTP Server
+     Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled; preset: disab>
+     Active: inactive (dead)
+       Docs: man:httpd.service(8)       
+       
+[ec2-user@ip-172-31-20-227 ~]$ sudo systemctl start httpd       / sudo init 6
+
+[ec2-user@ip-172-31-20-227 ~]$ sudo systemctl start httpd
+
+[ec2-user@ip-172-31-20-227 ~]$ curl localhost
+<html><body><h1>It works!</h1></body></html>
+
+[ec2-user@ip-172-31-20-227 ~]$ curl localhost
+<html><body><h1>It works!</h1></body></html>
+
+[ec2-user@ip-172-31-20-227 ~]$ sudo systemctl stop httpd
+
+[ec2-user@ip-172-31-20-227 ~]$ curl localhost
+curl: (7) Failed to connect to localhost port 80 after 0 ms: Could not connect to server
+
+[ec2-user@ip-172-31-20-227 ~]$ sudo systemctl start httpd
+
+[ec2-user@ip-172-31-20-227 ~]$ curl localhost
+<html><body><h1>It works!</h1></body></html>
+
+init is the firts process started by the kernal after boot
+it initializes the system and sets the runlevel(system state)
+traditionally, runlevels were used in sysvinit systems(old liunx distros )
+
+Runlevel	Command			Meaning
+0		sudo init 0	Halt / Shutdown the system immediately
+1		sudo init 1	Single-user mode (maintenance mode, root only, no networking)
+2		sudo init 2	Multi-user mode without networking (varies by distro)
+3		sudo init 3	Multi-user mode with networking, text console only
+4		sudo init 4	Unused / Custom (can be defined by admin)
+5		sudo init 5	Multi-user mode with GUI (X11/desktop)
+6		sudo init 6	Reboot the system immediately
+
+
+Dangerous commands: init 0 and init 6 will shutdown or reboot immediately — don’t run them casually in class unless you’re on a VM.
+
+Modern systems: With systemd, runlevels are replaced by targets. For example:
+
+systemctl isolate multi-user.target (like runlevel 3)
+
+systemctl isolate graphical.target (like runlevel 5)
+
+systemctl poweroff (like runlevel 0)
+
+systemctl reboot (like runlevel 6)
+
+[ec2-user@ip-172-31-20-227 ~]$ curl ifconfig.me
+34.222.133.241
+
+[ec2-user@ip-172-31-20-227 ~]$ yum history
+ID     | Command line                 | Date and time    | Action(s)      | Altered
+-----------------------------------------------------------------------------------
+     2 | install wget git maven -y    | 2025-11-25 02:17 | Install        |   64
+     1 | install httpd -y             | 2025-11-25 01:57 | Install        |   13
+
+[ec2-user@ip-172-31-20-227 ~]$ mvn --version
+Apache Maven 3.8.4 (Red Hat 3.8.4-3.amzn2023.0.5)
+Maven home: /usr/share/maven
+Java version: 17.0.17, vendor: Amazon.com Inc., runtime: /usr/lib/jvm/java-17-amazon-corretto.x86_64
+Default locale: en, platform encoding: UTF-8
+OS name: "linux", version: "6.1.158-178.288.amzn2023.x86_64", arch: "amd64", family: "unix"
+
+[ec2-user@ip-172-31-20-227 ~]$ which mvn
+/usr/bin/mvn
+
+[ec2-user@ip-172-31-20-227 ~]$ sudo yum history undo 2
+
+service Management commands (service & systemctl)
+
+sudo systemctl reload <service-name>
+
+sudo systemctl reload <service-name>  // Reload Configuration (without stopping service)
+sudo service <service-name> reload
+
+sudo systemctl restart <service-name>		// Restart a Service
+sudo service <service-name> restart
+
+sudo systemctl enable <service-name>	// Enable or Disable Services (auto-start on boot)
+sudo systemctl disable <service-name>	
+
+
+[ec2-user@ip-172-31-20-227 ~]$ sudo systemctl is-active httpd
+active
+
+[ec2-user@ip-172-31-20-227 ~]$ sudo systemctl is-enabled httpd
+enabled
+
+
+[ec2-user@ip-172-31-20-227 ~]$ systemctl list-units --type=service // All loaded services:
+
+[ec2-user@ip-172-31-20-227 ~]$ systemctl list-unit-files --type=service  systemctl list-unit-files --type=service //All installed services (active & inactive):
+
+
+[ec2-user@ip-172-31-20-227 ~]$ journalctl -u httpd	// view system logs for a service
+
+[ec2-user@ip-172-31-20-227 ~]$ journalctl -u httpd -f	// logs live
+
+
+[ec2-user@ip-172-31-20-227 ~]$ sudo systemctl reboot	// to reboot
+
+[ec2-user@ip-172-31-20-227 ~]$ sudo systemctl poweroff	// to shutdown

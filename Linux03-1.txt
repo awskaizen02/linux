@@ -1,0 +1,115 @@
+windows winzip winrar = helps to compress huge file and transfer
+
+
+linux we use tar , gunzip
+
+tar -czf 
+bun.zip
+extbun.zip
+
+if doing only tar helps to compress multiple files into onefolder helps to transfer
+
+gun zip helps to compress file file with less space
+bun zip helps to compress file file with less space; less than gun zip size
+exbun  zip helps to compress file file with less space; less than bun zip
+
+
+gun zip
+tar -czf name.tar.gz <source_folder_name> <source_folder_name> <source_folder_name>
+
+c = create
+z = gzipm compression
+f = file name
+
+tar -tzf demo_gunzip_01.tar.gz 
+t -> list(show contents)
+
+tar -xzf demo_gunzip_01.tar.gz 
+x -> extract
+z -> gzip
+
+[root@ip-172-31-31-137 ~]# tar -cvf tar_demo1_class.tar /etc/ /var
+
+[root@ip-172-31-31-137 ~]# tar -czf demo_gunzip_01.tar.gz /etc/ /var
+
+---
+binzip2
+tar -cjf  bun_zip_demo01.tar.bz2  compress
+tar -tjf  bun_zip_demo01.tar.bz2
+tar -xjf  bun_zip_demo01.tar.bz2
+
+c -> create
+j -> bzip2 compression
+f -> filename
+
+t -> list(show contents)
+x -> extract
+
+---
+
+xz compression
+
+tar -cJf ex_bun_demo01.tar.xz folder
+tar -tJf  bun_zip_demo01.tar.bz2
+tar -xJf  bun_zip_demo01.tar.bz2
+
+
+
+c -> create
+J -> xz compression
+f -> filename
+
+t -> list(show contents)
+x -> extract
+
+----schedule jobs 
+
+one time  # at
+
+repet multiple time in assign task  # cron
+
+
+what is an at job ?
+	it is used to schedule a single future task
+	when the scheduled time arives, the system runs the command once and then deletes the job
+	Helpful for delayed tasks like shutdowns , remiders, backups
+	
+	
+	vi 1.sh
+	
+	#!/bin/bash
+	timestamp=(date +"%Y%m%d_%H%M%S")
+	touch "/tmp/file_${timestamp}.txt"
+	
+[ec2-user@ip-172-31-31-137 ~]$ ls
+at.sh
+[ec2-user@ip-172-31-31-137 ~]$ atq
+2       Wed Nov 19 14:20:00 2025 a ec2-user
+[ec2-user@ip-172-31-31-137 ~]$ at -f at.sh now +1 minutes
+warning: commands will be executed using /bin/sh
+job 3 at Wed Nov 19 14:20:00 2025
+[ec2-user@ip-172-31-31-137 ~]$ at -f at.sh now +3 minutes
+warning: commands will be executed using /bin/sh
+job 4 at Wed Nov 19 14:22:00 2025
+[ec2-user@ip-172-31-31-137 ~]$ at -f at.sh now +4 minutes
+warning: commands will be executed using /bin/sh
+job 5 at Wed Nov 19 14:23:00 2025
+[ec2-user@ip-172-31-31-137 ~]$ ls
+at.sh
+[ec2-user@ip-172-31-31-137 ~]$ atq
+2       Wed Nov 19 14:20:00 2025 a ec2-user
+3       Wed Nov 19 14:20:00 2025 a ec2-user
+4       Wed Nov 19 14:22:00 2025 a ec2-user
+5       Wed Nov 19 14:23:00 2025 a ec2-user
+[ec2-user@ip-172-31-31-137 ~]$ atrm 5
+[ec2-user@ip-172-31-31-137 ~]$ atq
+2       Wed Nov 19 14:20:00 2025 a ec2-user
+3       Wed Nov 19 14:20:00 2025 a ec2-user
+4       Wed Nov 19 14:22:00 2025 a ec2-user
+
+--- crontab? --https://crontab.guru/
+Running backups every nignt
+cleaning tem files every week
+sending reports every moring
+running scrit at fixed intervals
+
