@@ -1,0 +1,255 @@
+Packet manager is the tool that install , update and removes software packages while also handling dependencies automaticall.It's one of the most essiential components of any linux distribution.
+
+Installs software from repositories (official or third-party).
+
+Updates packages to newer versions.
+
+Removes packages cleanly without leaving broken dependencies.
+
+Resolves dependencies (ensures required libraries are installed).
+
+Verifies versions and manages security patches.
+
+
+
+Distribution Family	Package Manager					Notes
+Debian/Ubuntu		APT (Advanced Package Tool) with dpkg	Uses .deb packages. Commands: apt install, apt update.
+
+RedHat/CentOS/Fedora	DNF (Dandified Yum) / YUM		Uses .rpm packages. Commands: dnf install, yum update.
+
+Arch Linux		pacman					Lightweight, fast. Command: pacman -S package.
+
+openSUSE		zypper					RPM-based, powerful dependency resolution.
+
+Gentoo			Portage					Source-based, highly customizable.
+
+Cross-distro 		Snap, Flatpak, AppImage			Universal formats, sandboxed apps, 
+(containerized)							portable across distros.
+
+
+NixOS			Nix					Declarative, reproducible builds.
+
+
+	# Amazon Linux 2 / RedHat/centos #
+sudo yum update -y
+sudo yum install <package> -y
+sudo yum remove <package> -y
+
+	# Amazon linux 2023 #DNF#
+sudo dnf update -y
+sudo dnf install <package> -y
+sudo dnf remove <package> -y
+
+	#ubuntu#
+sudo apt update -y
+sudo apt install <package> -y
+sudo apt remove <package> -y
+
+[ec2-user@ip-172-31-34-132 ~]$ sudo yum install httpd -y
+
+[ec2-user@ip-172-31-34-132 ~]$ sudo systemctl enable httpd
+Created symlink /etc/systemd/system/multi-user.target.wants/httpd.service ? /usr/lib/systemd/system/httpd.service.
+
+[ec2-user@ip-172-31-34-132 ~]$ sudo systemctl start httpd
+
+
+---
+ubuntu@ip-172-31-33-233:~$ sudo apt install apache2 -y
+
+ubuntu@ip-172-31-33-233:~$ sudo systemctl enable apache2
+Synchronizing state of apache2.service with SysV service script with /usr/lib/systemd/systemd-sysv-install.
+Executing: /usr/lib/systemd/systemd-sysv-install enable apache2
+
+ubuntu@ip-172-31-33-233:~$ sudo systemctl start apache2
+
+    1  clear
+    2  sudo apt update
+    3  sudo apt upgrade -y
+    4  sudo apt install apache2 -y
+    5  sudo systemctl enable apache2
+    6  sudo systemctl start apache2
+    7  curl localhost
+    8  sudo apt install nginx -y
+    9  sudo apt install mariadb-server -y
+   10  sudo systemctl start mariadb.service
+   11  sudo mysql_secure_installation
+   12  sudo mariadb
+   13  apt history
+   14  cat /var/log/apt/history.log
+   15  cat /var/log/apt/term.log
+   16  apt list --installed
+   17  grep -i nginx /var/log/apt/history.log
+   18  sudo apt remove nginx
+   19  grep -i nginx /var/log/apt/history.log
+   20  sudo apt clean
+   21  sudo apt autoremove
+   22  history
+   
+----
+    1  clear
+    2  sudo yum update
+    3  sudo yum install httpd -y
+    4  sudo systemctl enable httpd
+    5  sudo systemctl start httpd
+    6  curl localhost
+    7  sudo yum install nginx -y
+    8  sudo yum install python3 -y
+    9  sudo yum install python3-pip -y
+   10  yum installed history
+   11  yum history
+   12  sudo yum history undo 2
+   
+   ------
+   shell script
+   
+   Automate repetitive tasks
+   
+   		 Backups, log rotation, cleanup of temporary files
+   
+   System monitoring & management
+   
+   		 Checking disk usage, CPU load, memory consumption
+   
+   User and process management
+   
+   		 Adding users, managing permissions, killing processes
+   
+   Software installation & configuration
+   
+  		  Installing packages, setting environment variables
+   
+   Workflow orchestration
+   
+  		  Running multiple commands/programs in sequence
+   
+   Integration with cloud tools
+   
+  		 Automating AWS CLI commands, deploying resources
+   
+   Wrapper scripts
+   
+		Setting up environment, running a program, and cleaning up afterward
+		
+--------------------------------
+
+#!/bin/bash
+
+echo "============================================"
+echo "		System Information Tool		  "
+echo "============================================"
+
+echo -e "\n Hostname:"
+hostname
+
+echo -e "\n Current User:"
+whoami
+
+echo -e "\n System Uptime:"
+uptime -p
+
+echo -e "\n Disk Usage:"
+df -h
+
+echo -e "\n Memory Usage"
+free -h
+
+echo -e "\n Top 5 Process by CPU:"
+ps -eo pid,comm,%cpu --sort=-%cpu | head -6
+
+echo -e "\n IP Address:"
+hostname -I
+
+echo -e "\n============================================"
+echo "		End OF Process			  "
+echo "============================================"
+
+---------
+if,elif,else,case,numeric conditions,string conditions,file conditions)
+
+#!/bin/bash
+
+# This is for test script using if condition
+# if contiontion open with if and close with fi
+
+num=10
+
+if [ $num -gt 5 ]; then
+   echo "Number is grater than 5"
+fi   
+
+---
+#!/bin/bash
+
+# This is for test script using if condition
+# if contiontion open with if and close with fi
+
+num=10
+
+if [ $num -gt 5 ]; then
+   echo "Number is grater than 5"
+else
+   echo "Number is less than 5"
+fi 
+
+----
+#!/bin/bash
+
+# This is for test script using if condition
+# if contiontion open with if and close with fi
+
+num=10
+
+if [ $num -eq 0 ]; then
+   echo "0 is not valid "
+elif [ $num -gt 5 ]; then
+   echo " Number is greater than 5"
+elif [ $num -lt 5 ]; then
+   echo " Number is less than 5"
+else
+   echo "Number is exactly than 5"
+fi 
+
+------
+#!/bin/bash
+
+# This is for test script using if condition
+# if contiontion open with if and close with fi
+
+echo -n "Eater a number: "
+read num
+
+if [ "$num" -eq 0 ]; then
+   echo "0 is not valid "
+elif [ "$num" -gt 5 ]; then
+   echo " Number is greater than 5"
+elif [ "$num" -lt 5 ]; then
+   echo " Number is less than 5"
+else
+   echo "Number is exactly than 5"
+fi
+
+---------
+#!/bin/bash
+
+user=$(whoami)
+
+if [ "$user" = "root" ]; then
+	echo "You are root user"
+else
+	echo "You are not root user"
+fi	
+
+----
+if-elif-else conditon
+
+#!/bin/bash
+
+load=$(uptime | awk '{print $(NF -2)}' | sed 's/,//')
+
+if (( $(echo "$load < 1.0" | bc -l) )); then
+        echo "system load is Low"
+elif (( $(echo "$load < 3.0" | bc -l) )); then
+        echo "system load is Medium"
+else
+        echo "system load is High"
+fi	
